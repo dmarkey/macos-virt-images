@@ -20,7 +20,12 @@ chmod 755 "$ROOT"/usr/sbin/macos-virt-service
 mkdir "$ROOT"/dev
 mkdir "$ROOT"/proc
 mkdir "$ROOT"/sys
-debootstrap --components=main,restricted,universe,multiverse --arch=$DEBIAN_ARCH --include="$PACKAGES,linux-image-$DEBIAN_ARCH" "$RELEASE" "$ROOT"
+
+if [[ "$PACKAGES" != *"linux"* ]]; then
+  PACKAGES=$PACKAGES,linux-image-$DEBIAN_ARCH
+fi
+
+debootstrap --components=main,restricted,universe,multiverse --arch=$DEBIAN_ARCH --include="$PACKAGES" "$RELEASE" "$ROOT"
 
 cat << 'EOF' >> "$ROOT"/etc/systemd/system/macos-virt-service.service
 [Unit]
