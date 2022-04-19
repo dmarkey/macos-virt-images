@@ -9,9 +9,9 @@ bash -e ../prepare_image.sh "$NAME" "$RELEASE" "$ARCH"
 ROOT=/working/$NAME/$RELEASE/$ARCH
 
 if  [ "$ARCH" = "x86_64" ]; then
-  ARCH=amd64
+  DEBIAN_ARCH=amd64
 else
-  ARCH=arm64
+  DEBIAN_ARCH=arm64
 fi
 mkdir -p "$ROOT"/usr/sbin/
 cp ../service.sh "$ROOT"/usr/sbin/macos-virt-service
@@ -20,7 +20,7 @@ chmod 755 "$ROOT"/usr/sbin/macos-virt-service
 mkdir "$ROOT"/dev
 mkdir "$ROOT"/proc
 mkdir "$ROOT"/sys
-debootstrap --components=main,restricted,universe,multiverse --arch=$ARCH --include="$PACKAGES" "$RELEASE" "$ROOT"
+debootstrap --components=main,restricted,universe,multiverse --arch=$DEBIAN_ARCH --include="$PACKAGES" "$RELEASE" "$ROOT"
 
 cat << 'EOF' >> "$ROOT"/etc/systemd/system/macos-virt-service.service
 [Unit]
