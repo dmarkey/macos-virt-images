@@ -25,7 +25,7 @@ if [[ "$PACKAGES" != *"linux"* ]]; then
   PACKAGES=$PACKAGES,linux-image-$DEBIAN_ARCH
 fi
 
-debootstrap --components=main,restricted,universe,multiverse --arch=$DEBIAN_ARCH --include="$PACKAGES" "$RELEASE" "$ROOT"
+debootstrap --components=main,restricted,universe,multiverse --arch=$DEBIAN_ARCH --include="$PACKAGES,netplan.io,openssh-server,sshfs" "$RELEASE" "$ROOT"
 
 cat << 'EOF' >> "$ROOT"/etc/systemd/system/macos-virt-service.service
 [Unit]
