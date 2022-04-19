@@ -7,5 +7,5 @@ BOOT_CONFIG=$4
 
 cp $BOOT_CONFIG /working/$NAME/$RELEASE/$ARCH/boot/boot.cfg
 umount /working/$NAME/$RELEASE/$ARCH/boot/ /working/$NAME/$RELEASE/$ARCH
-gzip /images/$NAME/$RELEASE/$ARCH/root.img
-gzip /images/$NAME/$RELEASE/$ARCH/boot.img
+cd /images/$NAME/$RELEASE/$ARCH/
+tar zcvf package.tar.gz root.img boot.img 
