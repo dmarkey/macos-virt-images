@@ -52,7 +52,7 @@ echo "    renderer: networkd" >> /etc/netplan/network.yaml
 echo "    ethernets:" >> /etc/netplan/network.yaml
 echo "        enp0s1:" >>  /etc/netplan/network.yaml
 echo "            dhcp4: true" >> /etc/netplan/network.yaml
-netplan apply
+netplan generate
 EOF
 
 chroot "$ROOT" /bin/sh /tmp/init.sh
