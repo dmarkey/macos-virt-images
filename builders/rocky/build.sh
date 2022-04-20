@@ -26,6 +26,8 @@ Description=Macos-Virt Agent.
 [Service]
 
 ExecStart=/usr/sbin/macos-virt-service
+After=network-online.target
+Wants=network-online.target
 
 [Install]
 
@@ -34,18 +36,20 @@ EOF
 cat << 'EOF' >> "$ROOT"/tmp/init.sh
 #!/bin/sh
 dnf -y upgrade
+rpm  --rebuilddb
 dnf install -y dnf-plugin-config-manager
 rpm  --rebuilddb
-dnf -y install kernel fuse-sshfs sudo
+dnf config-manager --set-enabled powertools
+dnf -y install kernel fuse-sshfs sudo openssh-server NetworkManager
 echo "fuse" >> /etc/modules
 echo "/dev/vda      /    ext4   defaults        0 0" >> /etc/fstab
 echo "/dev/vdb      /boot    udf   defaults        0 0" >> /etc/fstab
-echo "hvc0::respawn:/sbin/getty -L 0 hvc0 vt100" >> /etc/inittab
 systemctl enable getty@hvc0
-systemctl enable ssh
+systemctl enable sshd
+systemctl enable NetworkManager
 systemctl enable macos-virt-service
 useradd -m macos-virt
-gpasswd -a macos-virt sudo
+gpasswd -a macos-virt wheel
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 echo root:password | chpasswd
 EOF
