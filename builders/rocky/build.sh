@@ -13,7 +13,7 @@ mkdir -p "$ROOT"/usr/sbin/
 cp ../service.sh "$ROOT"/usr/sbin/macos-virt-service
 chmod 755 "$ROOT"/usr/sbin/macos-virt-service
 cd $ROOT
-curl $DOWNLOAD_URL | tar Jxvf -
+curl -L $DOWNLOAD_URL | tar Jxvf -
 mount --bind /dev $ROOT/dev
 mount --bind /sys $ROOT/sys
 mount --bind /proc $ROOT/proc
