@@ -8,16 +8,16 @@ bash -e ../prepare_image.sh "$NAME" "$RELEASE" "$ARCH"
 
 ROOT=/working/$NAME/$RELEASE/$ARCH
 
-DOWNLOAD_URL=curl https://github.com/rocky-linux/sig-cloud-instance-images/raw/Rocky-$RELEASE-$ARCH/rocky-$RELEASE-docker-$ARCH.tar.xz
+DOWNLOAD_URL=https://github.com/rocky-linux/sig-cloud-instance-images/raw/Rocky-$RELEASE-$ARCH/rocky-$RELEASE-docker-$ARCH.tar.xz
 mkdir -p "$ROOT"/usr/sbin/
 cp ../service.sh "$ROOT"/usr/sbin/macos-virt-service
 chmod 755 "$ROOT"/usr/sbin/macos-virt-service
 cd $ROOT
-curl $DOWNLOAD_URL | tar zxvf -
+curl $DOWNLOAD_URL | tar Jxvf -
 mount --bind /dev $ROOT/dev
 mount --bind /sys $ROOT/sys
 mount --bind /proc $ROOT/proc
-echo "nameserver 8.8.8.8" >> $ROOT/etc/resolv.conf
+echo "nameserver 8.8.8.8" > $ROOT/etc/resolv.conf
 cat << 'EOF' >> "$ROOT"/etc/systemd/system/macos-virt-service.service
 [Unit]
 
@@ -44,8 +44,8 @@ echo "hvc0::respawn:/sbin/getty -L 0 hvc0 vt100" >> /etc/inittab
 systemctl enable getty@hvc0
 systemctl enable ssh
 systemctl enable macos-virt-service
-adduser macos-virt -D -s /bin/sh
-addgroup macos-virt wheel
+useradd -m macos-virt
+gpasswd -a macos-virt sudo
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 echo root:password | chpasswd
 EOF
