@@ -4,6 +4,9 @@ RELEASE=$2
 PACKAGES=$3
 BOOT_CONFIG=$4
 ARCH=$5
+bash -e ../prepare_image.sh "$NAME" "$RELEASE" "$ARCH"
+
+ROOT=/working/$NAME/$RELEASE/$ARCH
 
 DOWNLOAD_URL=https://dl-cdn.alpinelinux.org/alpine/v$RELEASE/releases/$ARCH/alpine-minirootfs-$RELEASE.0-$ARCH.tar.gz
 mkdir -p "$ROOT"/usr/sbin/
