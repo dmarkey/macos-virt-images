@@ -46,6 +46,7 @@ cat << EOF >> "$ROOT"/tmp/init.sh
 useradd -m macos-virt
 gpasswd -a macos-virt sudo
 echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+echo fuse >> /etc/modules
 systemctl enable getty@hvc0
 systemctl enable ssh
 systemctl enable macos-virt-service

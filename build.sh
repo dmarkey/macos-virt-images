@@ -6,9 +6,12 @@ RELEASE=$3
 PACKAGES=$4
 BOOT_CONFIG=$5
 BOOT_CONFIG=$PWD/boot_configs/$BOOT_CONFIG
+DESCRIPTION=$6
 
 cd builders/$BUILDER
 bash build.sh $NAME $RELEASE $PACKAGES $BOOT_CONFIG aarch64
-#bash build.sh $NAME $RELEASE $PACKAGES $BOOT_CONFIG x86_64
+bash build.sh $NAME $RELEASE $PACKAGES $BOOT_CONFIG x86_64
+cd -
+echo $DESCRIPTION > /images/$NAME/$RELEASE/description
 
 

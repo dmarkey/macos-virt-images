@@ -1,7 +1,10 @@
 #!/bin/bash -e
-ROOT=$1
+NAME=$1
 RELEASE=$2
-ARCH=$3
+PACKAGES=$3
+BOOT_CONFIG=$4
+ARCH=$5
+
 DOWNLOAD_URL=https://dl-cdn.alpinelinux.org/alpine/v$RELEASE/releases/$ARCH/alpine-minirootfs-$RELEASE.0-$ARCH.tar.gz
 mkdir -p "$ROOT"/usr/sbin/
 cp ../service.sh "$ROOT"/usr/sbin/macos-virt-service
@@ -72,5 +75,6 @@ addgroup macos-virt wheel
 echo "%wheel ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 EOF
 chroot "$ROOT" /bin/sh /tmp/init.sh
-cd
+cd -
 umount "$ROOT"/dev "$ROOT"/proc "$ROOT"/sys
+bash ../finalize.sh $NAME $RELEASE $ARCH $BOOT_CONFIG
