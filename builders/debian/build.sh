@@ -50,6 +50,7 @@ echo fuse >> /etc/modules
 systemctl enable getty@hvc0
 systemctl enable ssh
 systemctl enable macos-virt-service
+echo 'root:password' | chpasswd
 echo "/dev/vda      /    ext4   defaults        0 0" >> /etc/fstab
 echo "/dev/vdb      /boot    udf   defaults        0 0" >> /etc/fstab
 echo "network:" >> /etc/netplan/network.yaml
