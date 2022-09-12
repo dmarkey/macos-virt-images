@@ -39,8 +39,7 @@ dnf -y upgrade
 rpm  --rebuilddb
 dnf install -y dnf-plugin-config-manager
 rpm  --rebuilddb
-dnf config-manager --set-enabled powertools
-dnf -y install kernel fuse-sshfs sudo openssh-server NetworkManager
+dnf -y install kernel sudo openssh-server NetworkManager
 echo "fuse" >> /etc/modules
 echo "/dev/vda      /    ext4   defaults        0 0" >> /etc/fstab
 echo "/dev/vdb      /boot    udf   defaults        0 0" >> /etc/fstab

@@ -36,7 +36,7 @@ apk update
 apk add openrc linux-virt openssh-server-pam
 apk add e2fsprogs-extra udftools
 apk add busybox-initscripts
-apk add sudo sshfs
+apk add sudo
 rc-update add syslog boot
 rc-update add localmount
 rc-update add mdev
