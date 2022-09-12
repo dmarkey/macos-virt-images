@@ -53,6 +53,8 @@ systemctl enable getty@hvc0
 systemctl enable ssh
 systemctl enable macos-virt-service
 systemctl enable systemd-networkd
+systemctl disable systemd-resolved
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
 mkdir -p /etc/systemd/network
 echo "[Match]" > /etc/systemd/network/20-wired.network
 echo "Name=enp0*" >> /etc/systemd/network/20-wired.network
