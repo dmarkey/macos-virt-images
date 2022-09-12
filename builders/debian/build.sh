@@ -52,6 +52,13 @@ echo fuse >> /etc/modules
 systemctl enable getty@hvc0
 systemctl enable ssh
 systemctl enable macos-virt-service
+systemctl enable networking
+echo "auto enp0s1" >> /etc/network/interfaces.d/enp0s1.conf
+echo "allow-hotplug enp0s1" >> /etc/network/interfaces.d/enp0s1.conf
+echo "iface enp0s1 inet dhcp" >> /etc/network/interfaces.d/enp0s1.conf
+echo "auto enp0s0" >> /etc/network/interfaces.d/enp0s0.conf
+echo "allow-hotplug enp0s0" >> /etc/network/interfaces.d/enp0s0.conf
+echo "iface enp0s0 inet dhcp" >> /etc/network/interfaces.d/enp0s0.conf
 echo 'root:password' | chpasswd
 echo "/dev/vda      /    ext4   defaults        0 0" >> /etc/fstab
 echo "/dev/vdb      /boot    udf   defaults        0 0" >> /etc/fstab
