@@ -54,10 +54,10 @@ systemctl enable ssh
 systemctl enable macos-virt-service
 systemctl enable systemd-networkd
 mkdir -p /etc/systemd/network
-echo "[Match]" > /etc/systemd/network/20-wired.network"
-echo "Name=enp0*" >> /etc/systemd/network/20-wired.network"
-echo "[Network]" >> /etc/systemd/network/20-wired.network"
-echo "DHCP=yes" >> /etc/systemd/network/20-wired.network"
+echo "[Match]" > /etc/systemd/network/20-wired.network
+echo "Name=enp0*" >> /etc/systemd/network/20-wired.network
+echo "[Network]" >> /etc/systemd/network/20-wired.network
+echo "DHCP=yes" >> /etc/systemd/network/20-wired.network
 echo 'root:password' | chpasswd
 echo "/dev/vda      /    ext4   defaults        0 0" >> /etc/fstab
 echo "/dev/vdb      /boot    udf   defaults        0 0" >> /etc/fstab
