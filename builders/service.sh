@@ -9,12 +9,13 @@ mount_control_dir() {
 
 detect_ip() {
   IP_ADDRESS=""
-
+  touch $CONTROL_DIRECTORY/ip_not_detected
   while [ "$IP_ADDRESS" = "" ] ; do
     IP_ADDRESS=$(ip addr | grep "inet " | grep 192.168 | cut -d " " -f6 | cut -d "/" -f1)
     sleep 1;
   done
   echo "$IP_ADDRESS" >> "$CONTROL_DIRECTORY"/ip
+  rm $CONTROL_DIRECTORY/ip_not_detected
 }
 
 
