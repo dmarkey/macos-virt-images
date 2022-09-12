@@ -1,5 +1,4 @@
 #!/bin/sh
-bash build.sh rocky rocky 8.5 none rocky.cfg "Rocky Linux 8.5" &
 bash build.sh alpine alpine 3.16 none alpine.cfg "Alpine 3.16" &
 bash build.sh alpine alpine 3.15 none alpine.cfg "Alpine 3.15" &
 bash build.sh alpine alpine 3.14 none alpine.cfg "Alpine 3.14" &

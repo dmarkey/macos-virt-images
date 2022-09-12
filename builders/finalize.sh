@@ -4,7 +4,6 @@ NAME=$1
 RELEASE=$2
 ARCH=$3
 BOOT_CONFIG=$4
-echo $NAME > /working/$NAME/$RELEASE/$ARCH/etc/hostname
 cp $BOOT_CONFIG /working/$NAME/$RELEASE/$ARCH/boot/boot.cfg
 umount /working/$NAME/$RELEASE/$ARCH/boot/ /working/$NAME/$RELEASE/$ARCH
 cd /images/$NAME/$RELEASE/$ARCH/
