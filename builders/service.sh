@@ -59,6 +59,9 @@ main_loop(){
   done
 }
 
+resize_root(){
+  resize2fs /dev/vda
+}
 mount_usr_directory(){
   if [ -f "$CONTROL_DIRECTORY"/mnt_usr_directory ] ; then
     usr_directory=$(cat "$CONTROL_DIRECTORY"/mnt_usr_directory)
@@ -67,6 +70,7 @@ mount_usr_directory(){
   fi
 }
 
+resize_root
 mount_control_dir
 detect_ip
 mount_usr_directory
