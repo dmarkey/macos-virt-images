@@ -47,7 +47,6 @@ rc-update add root
 rc-update add sysfs
 rc-update add procfs
 rc-update add sysfsconf
-rc-update add fuse
 rc-update add acpid
 rc-update add sshd
 rc-update add local

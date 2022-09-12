@@ -35,6 +35,8 @@ Description=Macos-Virt Agent.
 [Service]
 
 ExecStart=/usr/sbin/macos-virt-service
+After=network-online.target
+Wants=network-online.target
 
 [Install]
 
@@ -53,13 +55,6 @@ systemctl enable macos-virt-service
 echo 'root:password' | chpasswd
 echo "/dev/vda      /    ext4   defaults        0 0" >> /etc/fstab
 echo "/dev/vdb      /boot    udf   defaults        0 0" >> /etc/fstab
-echo "network:" >> /etc/netplan/network.yaml
-echo "    version: 2" >> /etc/netplan/network.yaml
-echo "    renderer: networkd" >> /etc/netplan/network.yaml
-echo "    ethernets:" >> /etc/netplan/network.yaml
-echo "        enp0s1:" >>  /etc/netplan/network.yaml
-echo "            dhcp4: true" >> /etc/netplan/network.yaml
-netplan generate
 EOF
 
 chroot "$ROOT" /bin/sh /tmp/init.sh
