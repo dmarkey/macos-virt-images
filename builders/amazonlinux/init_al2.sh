@@ -1,4 +1,5 @@
 #!/bin/sh -e
+groupadd sudo
 useradd -m macos-virt
 gpasswd -a macos-virt sudo
 echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
