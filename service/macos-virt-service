@@ -67,7 +67,7 @@ mount_usr_directory(){
   if [ -f "$CONTROL_DIRECTORY"/mnt_usr_directory ] ; then
     usr_directory=$(cat "$CONTROL_DIRECTORY"/mnt_usr_directory)
     mkdir -p "$usr_directory"
-    mount -t virtiofs home "$usr_directory"
+    mount -t virtiofs user-home "$usr_directory"
   fi
 }
 
