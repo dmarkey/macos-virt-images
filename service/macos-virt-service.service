@@ -1,0 +1,13 @@
+[Unit]
+
+Description=Macos-Virt Agent.
+
+[Service]
+
+ExecStart=/usr/sbin/macos-virt-service
+After=network-online.target
+Wants=network-online.target
+
+[Install]
+
+WantedBy=multi-user.target

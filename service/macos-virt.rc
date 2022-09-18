@@ -1,0 +1,9 @@
+#!/sbin/openrc-run
+name="macos-virt"
+command="/usr/sbin/macos-virt-service"
+command_background="yes"
+pidfile="/var/run/${RC_SVCNAME}.pid"
+depend() {
+  after networking
+}
+rc_crashed_start=YES

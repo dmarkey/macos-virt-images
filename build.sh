@@ -1,17 +1,17 @@
-#!/bin/sh
+#!/bin/bash -e
+NAME=$1
+VERSION=$2
 
-BUILDER=$1
-NAME=$2
-RELEASE=$3
-PACKAGES=$4
-BOOT_CONFIG=$5
-BOOT_CONFIG=$PWD/boot_configs/$BOOT_CONFIG
-DESCRIPTION=$6
-
-cd builders/$BUILDER
-bash build.sh $NAME $RELEASE $PACKAGES $BOOT_CONFIG aarch64
-bash build.sh $NAME $RELEASE $PACKAGES $BOOT_CONFIG x86_64
-cd -
-echo $DESCRIPTION > /images/$NAME/$RELEASE/description
-
-
+docker buildx build --output type=tar --build-arg VERSION="${VERSION}" . -f builders/"${NAME}"/Dockerfile > full_rootfs.tar
+rm -rf boot || true
+mkdir boot
+tar -xvf full_rootfs.tar  boot -C boot
+find boot -type l -delete
+bsdtar -c -L -f rootfs.tar -p --exclude='boot/*' @full_rootfs.tar
+tar -rvf  rootfs.tar -C ./service/ etc/resolv.conf --owner=0 --group=0
+virt-make-fs --type=ext4 -s 1G rootfs.tar root.img
+virt-make-fs --type=vfat -s 100M ./boot/ boot.img
+tar -cvf output/"$NAME"-"$VERSION"-"$(uname -m)".tar root.img boot.img
+tar -rvf output/"$NAME"-"$VERSION"-"$(uname -m)".tar  -C builders/"${NAME}" boot.cfg
+gzip -f output/"$NAME"-"$VERSION"-"$(uname -m)".tar
+rm -rf boot full_rootfs.tar boot.img root.img
