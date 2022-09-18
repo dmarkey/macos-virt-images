@@ -6,6 +6,7 @@ systemctl enable ssh
 systemctl enable macos-virt-service
 systemctl enable systemd-networkd
 systemctl disable systemd-resolved
+systemctl enable getty@hvc0
 mkdir -p /etc/systemd/network
 echo "[Match]" > /etc/systemd/network/20-wired.network
 echo "Name=enp0*" >> /etc/systemd/network/20-wired.network
