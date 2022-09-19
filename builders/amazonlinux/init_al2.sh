@@ -3,7 +3,7 @@ groupadd sudo
 useradd -m macos-virt
 gpasswd -a macos-virt sudo
 echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-systemctl enable ssh
+systemctl enable openssh
 systemctl enable macos-virt-service
 systemctl enable systemd-networkd
 systemctl disable systemd-resolved

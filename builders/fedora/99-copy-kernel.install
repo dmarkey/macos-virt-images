@@ -1,0 +1,4 @@
+#!/bin/sh
+if [ "$1" = "add" ]; then
+    cp -rv $4 /boot/vmlinuz
+fi
