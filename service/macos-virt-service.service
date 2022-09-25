@@ -1,12 +1,12 @@
 [Unit]
 
 Description=Macos-Virt Agent.
+After=network-online.target
+Wants=network-online.target
 
 [Service]
 
 ExecStart=/usr/sbin/macos-virt-service
-After=network-online.target
-Wants=network-online.target
 Restart=on-failure
 RestartSec=5s
 
