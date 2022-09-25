@@ -77,14 +77,17 @@ mount_usr_directory(){
   fi
 }
 
-resize_root
 mount_control_dir
-sync_time
+if [ ! -f "$CONTROL_DIRECTORY"/initialized ] ; then
+  inject_ssh_key
+  touch "$CONTROL_DIRECTORY"/initialized
+fi
+resize_root
 detect_ip
+sync_time
 mount_usr_directory
 
 if [ ! -f "$CONTROL_DIRECTORY"/initialized ] ; then
-  inject_ssh_key
   provision_machine
   touch "$CONTROL_DIRECTORY"/initialized
 fi

@@ -3,7 +3,6 @@ useradd -m macos-virt
 gpasswd -a macos-virt sudo
 echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 echo fuse >> /etc/modules
-systemctl enable getty@hvc0
 systemctl enable ssh
 systemctl enable chronyd
 systemctl enable macos-virt-service
@@ -18,6 +17,6 @@ echo 'root:password' | chpasswd
 echo "/dev/vda      /    ext4   defaults        0 0" >> /etc/fstab
 echo "/dev/vdb      /boot    vfat   defaults        0 0" >> /etc/fstab
 echo localhost > /etc/hostname
-ln -s /lib/systemd/systemd /usr/sbin/ini
+ln -s /lib/systemd/systemd /usr/sbin/init || true
 rm /etc/kernel/postinst.d/xx-update-initrd-links || true
 locale-gen "en_US.UTF-8"
