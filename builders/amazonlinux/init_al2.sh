@@ -1,10 +1,13 @@
 #!/bin/sh -e
-yum install -y sudo openssh-server systemd-networkd iproute systemd procps e2fsprogs chrony kernel
+yum install -y sudo openssh-server systemd-networkd iproute systemd procps e2fsprogs rdate kernel
 groupadd sudo
 useradd -m macos-virt
 gpasswd -a macos-virt sudo
 echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-systemctl enable chronyd
+echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+echo "#!/bin/sh" > /bin/sync_time
+echo "rdate -s time.nist.gov" >> /bin/sync_time
+chmod 755 /bin/sync_time
 systemctl enable sshd
 systemctl enable macos-virt-service
 systemctl enable systemd-networkd

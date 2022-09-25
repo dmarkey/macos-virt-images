@@ -8,9 +8,7 @@ mount_control_dir() {
 
 sync_time(){
   echo "Setting time"
-  chronyc activity
-  chronyc "makestep 0.1 1 burst 1/2"
-  chronyc waitsync
+  sync_time
 }
 
 detect_ip() {
