@@ -2,12 +2,8 @@
 
 CONTROL_DIRECTORY=/var/lib/macos-virt/control
 mount_control_dir() {
-  if [ ! -d $CONTROL_DIRECTORY ]
-  then
-    mkdir -p $CONTROL_DIRECTORY
-    mount -t virtiofs control $CONTROL_DIRECTORY
-  fi
-
+  mkdir -p $CONTROL_DIRECTORY
+  mount -t virtiofs control $CONTROL_DIRECTORY || true
 }
 
 sync_time_wrapper(){
