@@ -4,9 +4,6 @@ apk add openrc linux-virt openssh-server-pam chrony
 apk add e2fsprogs-extra udftools
 apk add busybox-initscripts
 apk add sudo
-echo "#!/bin/sh" > /bin/sync_time
-echo "rdate -s time.nist.gov" >> /bin/sync_time
-chmod 755 /bin/sync_time
 rc-update add localmount
 rc-update add mdev
 rc-update add hostname

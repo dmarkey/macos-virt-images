@@ -12,7 +12,7 @@ mount_control_dir() {
 
 sync_time_wrapper(){
   echo "Setting time"
-  sync_time
+  rdate -s utcnist.colorado.edu
 }
 
 detect_ip() {

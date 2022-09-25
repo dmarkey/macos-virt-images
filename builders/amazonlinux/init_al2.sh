@@ -5,9 +5,6 @@ useradd -m macos-virt
 gpasswd -a macos-virt sudo
 echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-echo "#!/bin/sh" > /bin/sync_time
-echo "rdate -s time.nist.gov" >> /bin/sync_time
-chmod 755 /bin/sync_time
 systemctl enable sshd
 systemctl enable macos-virt-service
 systemctl enable systemd-networkd
