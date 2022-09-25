@@ -5,6 +5,7 @@ echo "%sudo ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 echo fuse >> /etc/modules
 systemctl enable getty@hvc0
 systemctl enable ssh
+systemctl enable chronyd
 systemctl enable macos-virt-service
 systemctl enable systemd-networkd
 systemctl disable systemd-resolved

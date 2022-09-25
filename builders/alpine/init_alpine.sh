@@ -1,6 +1,6 @@
 #!/bin/sh -e
 apk update
-apk add openrc linux-virt openssh-server-pam
+apk add openrc linux-virt openssh-server-pam chrony
 apk add e2fsprogs-extra udftools
 apk add busybox-initscripts
 apk add sudo
@@ -11,7 +11,7 @@ rc-update add hostname
 rc-update add networking
 rc-update add modules
 rc-update add root
-rc-update add sysfs
+rc-update add chronyd
 rc-update add procfs
 rc-update add sysfsconf
 rc-update add acpid

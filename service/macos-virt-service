@@ -6,6 +6,12 @@ mount_control_dir() {
   mount -t virtiofs control $CONTROL_DIRECTORY
 }
 
+sync_time(){
+  echo "Setting time"
+  chronyc activity
+  chronyc "makestep 0.1 1 burst 1/2"
+  chronyc waitsync
+}
 
 detect_ip() {
   IP_ADDRESS=""
@@ -43,7 +49,7 @@ main_loop(){
 
     if [ -f "$CONTROL_DIRECTORY"/time_sync ] ; then
       echo "Setting time"
-      date +%s -s @$(stat -c "%Y" "$CONTROL_DIRECTORY"/time_sync)
+      sync_time
       rm "$CONTROL_DIRECTORY"/time_sync
     fi
     if [ -f "$CONTROL_DIRECTORY"/poweroff ] ; then
@@ -73,6 +79,7 @@ mount_usr_directory(){
 
 resize_root
 mount_control_dir
+sync_time
 detect_ip
 mount_usr_directory
 
