@@ -2,11 +2,15 @@
 
 CONTROL_DIRECTORY=/var/lib/macos-virt/control
 mount_control_dir() {
-  mkdir -p $CONTROL_DIRECTORY
-  mount -t virtiofs control $CONTROL_DIRECTORY
+  if [ ! -d $CONTROL_DIRECTORY ]
+  then
+    mkdir -p $CONTROL_DIRECTORY
+    mount -t virtiofs control $CONTROL_DIRECTORY
+  fi
+
 }
 
-sync_time(){
+sync_time_wrapper(){
   echo "Setting time"
   sync_time
 }
@@ -47,7 +51,7 @@ main_loop(){
 
     if [ -f "$CONTROL_DIRECTORY"/time_sync ] ; then
       echo "Setting time"
-      sync_time
+      sync_time_wrapper
       rm "$CONTROL_DIRECTORY"/time_sync
     fi
     if [ -f "$CONTROL_DIRECTORY"/poweroff ] ; then
@@ -70,8 +74,10 @@ resize_root(){
 mount_usr_directory(){
   if [ -f "$CONTROL_DIRECTORY"/mnt_usr_directory ] ; then
     usr_directory=$(cat "$CONTROL_DIRECTORY"/mnt_usr_directory)
-    mkdir -p "$usr_directory"
-    mount -t virtiofs user-home "$usr_directory"
+    if [ ! -d "$usr_directory" ] ; then
+      mkdir -p "$usr_directory"
+      mount -t virtiofs user-home "$usr_directory"
+    fi
   fi
 }
 
@@ -82,7 +88,7 @@ if [ ! -f "$CONTROL_DIRECTORY"/initialized ] ; then
 fi
 resize_root
 detect_ip
-sync_time
+sync_time_wrapper
 mount_usr_directory
 
 if [ ! -f "$CONTROL_DIRECTORY"/initialized ] ; then
