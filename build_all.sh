@@ -1,4 +1,5 @@
 #!/bin/sh -e
+RELEASE_NAME=$1
 apt-get install -y libguestfs-tools libarchive-tools
 mkdir -p output || true
 ./build.sh alpine 3.14
