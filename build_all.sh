@@ -6,3 +6,5 @@ mkdir -p output || true
 ./build.sh alpine 3.16
 ./build.sh ubuntu 20.04
 ./build.sh ubuntu 22.04
+./build.sh amazonlinux 2
+./build.sh fedora 36

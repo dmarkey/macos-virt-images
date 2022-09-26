@@ -1,0 +1,13 @@
+name: Build
+on:
+  workflow_dispatch:
+jobs:
+  build-base:
+    runs-on: [self-hosted Linux ARM64]
+    steps:
+    - uses: actions/checkout@v2
+    - run: sudo bash -e build_all.sh
+    #- uses: actions/upload-artifact@v2
+    #  with:
+    #    name: virt
+    #    path: vmlinuz.tar.gz
