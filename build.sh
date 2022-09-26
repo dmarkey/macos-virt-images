@@ -1,4 +1,4 @@
-#!/bin/bash -e
+#!/bin/bash -ex
 NAME=$1
 VERSION=$2
 WORKDIR=$PWD/workdir_"$NAME"_"$VERSION"/
