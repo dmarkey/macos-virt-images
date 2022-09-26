@@ -2,6 +2,8 @@ name: Build ARM64
 on:
   release:
     types: [published]
+env:
+  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 jobs:
   build-base:
     runs-on: [self-hosted, Linux, ARM64]
@@ -9,8 +11,6 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: sudo bash -e build_all.sh ${{ github.event.release.tag_name }}
-      env: # Or as an environment variable
-        GH_TOKEN: ${{ secrets.GH_TOKEN }}
     #- uses: actions/upload-artifact@v2
     #  with:
     #    name: virt
