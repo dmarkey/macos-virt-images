@@ -1,17 +1,17 @@
 #!/bin/bash -e
 NAME=$1
 VERSION=$2
-
-docker buildx build --output type=tar --build-arg VERSION="${VERSION}" . -f builders/"${NAME}"/Dockerfile > $$full_rootfs.tar
-rm -rf boot || true
-mkdir $$boot
-tar -xvf $$full_rootfs.tar  boot -C $$boot
-find $$boot -type l -delete
-bsdtar -c -L -f $$rootfs.tar -p --exclude='boot/*' @$$full_rootfs.tar
-tar -rvf  $$rootfs.tar -C ./service/ etc/resolv.conf etc/hosts etc/hostname --owner=0 --group=0
-virt-make-fs --type=ext4 -s 1G $$rootfs.tar $$root.img
-virt-make-fs --type=vfat -s 100M ./$$boot/ $$boot.img
-tar -cvf output/"$NAME"-"$VERSION"-"$(uname -m)".tar $$root.img $$boot.img
+WORKDIR=$PWD/workdir_$$
+mkdir -p "$WORKDIR"
+docker buildx build --output type=tar --build-arg VERSION="${VERSION}" . -f builders/"${NAME}"/Dockerfile > "$WORKDIR"/full_rootfs.tar
+mkdir "$WORKDIR"/boot
+tar -xvf "$WORKDIR"/full_rootfs.tar  boot -C $$boot
+find  "$WORKDIR"/boot -type l -delete
+bsdtar -c -L -f "$WORKDIR"/rootfs.tar -p --exclude='boot/*' @"$WORKDIR"/full_rootfs.tar
+tar -rvf "$WORKDIR"/rootfs.tar -C ./service/ etc/resolv.conf etc/hosts etc/hostname --owner=0 --group=0
+virt-make-fs --type=ext4 -s 1G  "$WORKDIR"/rootfs.tar  "$WORKDIR"/root.img
+virt-make-fs --type=vfat -s 100M  "$WORKDIR"/boot/  "$WORKDIR"/boot.img
+tar -cvf output/"$NAME"-"$VERSION"-"$(uname -m)".tar "$WORKDIR"/root.img "$WORKDIR"/boot.img
 tar -rvf output/"$NAME"-"$VERSION"-"$(uname -m)".tar  -C builders/"${NAME}" boot.cfg
 gzip -f output/"$NAME"-"$VERSION"-"$(uname -m)".tar
-rm -rf $$boot $$full_rootfs.tar $$boot.img $$root.img
+rm -rf "$WORKDIR"
