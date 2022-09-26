@@ -12,3 +12,5 @@ mkdir -p output || true
 ./build.sh debian 11
 cd output
 gh release upload "$RELEASE_NAME" *
+cd ../
+rm -rf output
