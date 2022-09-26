@@ -10,7 +10,7 @@ jobs:
     environment: actions
     steps:
     - uses: actions/checkout@v2
-    - run: sudo bash -e build_all.sh ${{ github.event.release.tag_name }}
+    - run: sudo -E bash -e build_all.sh ${{ github.event.release.tag_name }}
     #- uses: actions/upload-artifact@v2
     #  with:
     #    name: virt
