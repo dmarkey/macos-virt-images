@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: bash -e build_all.sh
+    - run: sudo bash -e build_all.sh
     #- uses: actions/upload-artifact@v2
     #  with:
     #    name: virt
