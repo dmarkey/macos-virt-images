@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: docker run -w $PWD -v $PWD ubuntu:22.04 sh -c './build_all.sh'  && ls 
+    - run: docker run -w $PWD -v $PWD ubuntu:22.04 sh -c 'find .'  && ls 
     #- uses: actions/upload-artifact@v2
     #  with:
     #    name: virt
