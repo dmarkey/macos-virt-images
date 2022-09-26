@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   build-base:
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, X64]
     steps:
     - uses: actions/checkout@v2
     - run: sudo bash -e build_all.sh
