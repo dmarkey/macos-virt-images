@@ -1,4 +1,4 @@
-name: Build
+name: Build X64
 on:
   workflow_dispatch:
 jobs:
