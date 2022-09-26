@@ -34,7 +34,6 @@ echo "UsePAM yes" >> /etc/ssh/sshd_config
 echo "kernel_glob=vmlinuz-virt" > /boot/boot.cfg
 echo "initrd_glob=initramfs-virt" >> /boot/boot.cfg
 echo "cmdline=console=hvc0 irqfixup quiet root=/dev/vda" >> /boot/boot.cfg
-echo root:password | chpasswd
 kernel_version=$(ls /lib/modules/)
 depmod -a $kernel_version
 mkinitfs -c /etc/mkinitfs/mkinitfs.conf -b / $kernel_version

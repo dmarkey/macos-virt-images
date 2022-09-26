@@ -8,7 +8,7 @@ mount_control_dir() {
 
 sync_time_wrapper(){
   echo "Setting time"
-  rdate -s utcnist.colorado.edu
+  rdate -s pool.ntp.org
 }
 
 detect_ip() {
@@ -77,8 +77,17 @@ mount_usr_directory(){
   fi
 }
 
+rotate_host_sshd_key(){
+  rm /etc/ssh/ssh_host_*
+  ssh-keygen -f /etc/ssh/ssh_host_rsa_key     -N '' -q -t rsa
+  ssh-keygen -f /etc/ssh/ssh_host_ecdsa_key   -N '' -q -t ecdsa
+  ssh-keygen -f /etc/ssh/ssh_host_ed25519_key -N '' -q -t ed25519
+  pkill -HUP sshd
+}
+
 mount_control_dir
 if [ ! -f "$CONTROL_DIRECTORY"/initialized ] ; then
+  rotate_host_sshd_key
   inject_ssh_key
   touch "$CONTROL_DIRECTORY"/initialized
 fi
