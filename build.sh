@@ -1,7 +1,7 @@
 #!/bin/bash -e
 NAME=$1
 VERSION=$2
-WORKDIR=$PWD/workdir_$$
+WORKDIR=$PWD/workdir_"$NAME"_"$VERSION"/
 mkdir -p "$WORKDIR"
 docker buildx build --output type=tar --build-arg VERSION="${VERSION}" . -f builders/"${NAME}"/Dockerfile > "$WORKDIR"/full_rootfs.tar
 mkdir "$WORKDIR"/boot
