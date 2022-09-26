@@ -1,5 +1,5 @@
 #!/bin/sh -e
-env
+gh repo ls
 exit
 apt-get install -y libguestfs-tools libarchive-tools
 mkdir -p output || true

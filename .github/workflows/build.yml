@@ -1,9 +1,9 @@
 name: Build X64
-env:
-  GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
 on:
   release:
     types: [published]
+env:
+  GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 jobs:
   build-base:
     runs-on: ubuntu-latest
