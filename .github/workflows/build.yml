@@ -1,12 +1,13 @@
 name: Build X64
 on:
-  workflow_dispatch:
+  release:
+    types: [published]
 jobs:
   build-base:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: sudo bash -e build_all.sh
+    - run: sudo bash -e build_all.sh ${{ github.event.release.tag_name }}
     #- uses: actions/upload-artifact@v2
     #  with:
     #    name: virt
