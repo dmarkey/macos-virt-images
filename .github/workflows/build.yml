@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - run: docker run -v $PWD:/root/virt ubuntu:22.04 sh -c 'cd ~/macos-virt-images && ./build_all.sh'  && ls 
+    - run: docker run -v $PWD ubuntu:22.04 sh -c './build_all.sh'  && ls 
     #- uses: actions/upload-artifact@v2
     #  with:
     #    name: virt
