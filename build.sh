@@ -5,7 +5,7 @@ WORKDIR=$PWD/workdir_$$
 mkdir -p "$WORKDIR"
 docker buildx build --output type=tar --build-arg VERSION="${VERSION}" . -f builders/"${NAME}"/Dockerfile > "$WORKDIR"/full_rootfs.tar
 mkdir "$WORKDIR"/boot
-tar -xvf "$WORKDIR"/full_rootfs.tar  boot -C $$boot
+tar -xvf "$WORKDIR"/full_rootfs.tar  boot -C "$WORKDIR"/boot
 find  "$WORKDIR"/boot -type l -delete
 bsdtar -c -L -f "$WORKDIR"/rootfs.tar -p --exclude='boot/*' @"$WORKDIR"/full_rootfs.tar
 tar -rvf "$WORKDIR"/rootfs.tar -C ./service/ etc/resolv.conf etc/hosts etc/hostname --owner=0 --group=0

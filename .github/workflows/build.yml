@@ -5,6 +5,8 @@ on:
 jobs:
   build-base:
     runs-on: ubuntu-latest
+    env: # Or as an environment variable
+      GH_TOKEN: ${{ secrets.GH_TOKEN }}
     steps:
     - uses: actions/checkout@v2
     - run: sudo bash -e build_all.sh ${{ github.event.release.tag_name }}
