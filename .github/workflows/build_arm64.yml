@@ -5,6 +5,7 @@ on:
 jobs:
   build-base:
     runs-on: [self-hosted, Linux, ARM64]
+    environment: actions
     steps:
     - uses: actions/checkout@v2
     - run: sudo bash -e build_all.sh ${{ github.event.release.tag_name }}
