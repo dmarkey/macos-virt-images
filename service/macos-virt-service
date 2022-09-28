@@ -8,7 +8,7 @@ mount_control_dir() {
 
 sync_time_wrapper(){
   echo "Setting time"
-  rdate -s pool.ntp.org
+  rdate -s time-a-wwv.nist.gov
 }
 
 detect_ip() {
