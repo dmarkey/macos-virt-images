@@ -1,6 +1,7 @@
 #!/bin/sh -e
 
-CONTROL_DIRECTORY=/var/lib/macos-virt/control
+MACOS_VIRT_DIRECTORY=/var/lib/macos-virt
+CONTROL_DIRECTORY=$MACOS_VIRT_DIRECTORY/control
 mount_control_dir() {
   mkdir -p $CONTROL_DIRECTORY
   mount -t virtiofs control $CONTROL_DIRECTORY || true
@@ -26,13 +27,6 @@ detect_ip() {
 inject_ssh_key(){
   mkdir -p ~macos-virt/.ssh/
   cat "$CONTROL_DIRECTORY"/ssh_key >> ~macos-virt/.ssh/authorized_keys
-}
-
-provision_machine(){
-  if [ -f "$CONTROL_DIRECTORY"/provision_script ] ; then
-    sh -e "$CONTROL_DIRECTORY"/provision_script > "$CONTROL_DIRECTORY"/provision_script_output
-    echo $? > "$CONTROL_DIRECTORY"/provision_script_return_code
-  fi
 }
 
 run_startup_script(){
@@ -86,20 +80,15 @@ rotate_host_sshd_key(){
 }
 
 mount_control_dir
-if [ ! -f "$CONTROL_DIRECTORY"/initialized ] ; then
+if [ ! -f "$MACOS_VIRT_DIRECTORY"/initialized ] ; then
   rotate_host_sshd_key
   inject_ssh_key
-  touch "$CONTROL_DIRECTORY"/initialized
+  touch "$MACOS_VIRT_DIRECTORY"/initialized
 fi
 resize_root
 detect_ip
 sync_time_wrapper
 mount_usr_directory
-
-if [ ! -f "$CONTROL_DIRECTORY"/initialized ] ; then
-  provision_machine
-  touch "$CONTROL_DIRECTORY"/initialized
-fi
 run_startup_script
 main_loop
 
