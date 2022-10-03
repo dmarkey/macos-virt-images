@@ -4,7 +4,7 @@ CONTROL_DIRECTORY=$MACOS_VIRT_DIRECTORY/control
 
 mount_control_dir() {
   mkdir -p $CONTROL_DIRECTORY
-  mount -t virtiofs control $CONTROL_DIRECTORY
+  mount -t virtiofs control $CONTROL_DIRECTORY || true
 }
 
 mount_control_dir
