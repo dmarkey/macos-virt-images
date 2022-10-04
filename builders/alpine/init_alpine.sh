@@ -16,7 +16,6 @@ rc-update add acpid
 rc-update add syslog
 rc-update add sshd
 rc-update add local
-rc-update add modloop
 rc-update add hwdrivers
 rc-update add bootmisc
 rc-update add macos-virt
