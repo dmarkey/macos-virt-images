@@ -1,6 +1,5 @@
 #!/bin/sh -e
 yum install -y sudo openssh-server systemd-networkd iproute systemd procps e2fsprogs rdate
-amazon-linux-extras install -y kernel-5.10
 groupadd sudo
 useradd -m macos-virt
 gpasswd -a macos-virt sudo
