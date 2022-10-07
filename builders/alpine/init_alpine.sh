@@ -1,6 +1,6 @@
 #!/bin/sh -e
 apk update
-apk add openrc linux-virt openssh-server-pam
+apk add openrc linux-virt openssh-server-pam openssh
 apk add e2fsprogs-extra udftools
 apk add busybox-initscripts
 apk add sudo

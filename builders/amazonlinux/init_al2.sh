@@ -1,5 +1,5 @@
 #!/bin/sh -e
-yum install -y sudo openssh-server systemd-networkd iproute systemd procps e2fsprogs rdate
+yum install -y sudo openssh-server systemd-networkd iproute systemd procps e2fsprogs rdate openssh-clients
 groupadd sudo
 useradd -m macos-virt
 gpasswd -a macos-virt sudo
